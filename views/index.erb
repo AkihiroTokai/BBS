@@ -2,21 +2,67 @@
 <html lang="ja">
 	<head>
 		<meta charset="UTF-8">
-		<title>Document</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="/javascripts/jquery.bxslider.min.js"></script>
+		<script src="/javascripts/bbs.js"></script>
+		<link href="/stylesheets/jquery.bxslider.css" rel="stylesheet" />
+		<title>PhotoCollection</title>		
 	</head>
 	<body>
-	 	<h1>Hello Sinatra!</h1>
-	 	<form action="/new"  method="post">
+		<div class=slideshow>
+
+	 	<h1>PhotoCollection</h1>
+	 	<ul class="bxslider">
+	 		 <div class="slide"><img src="/images/<%= content.img %>.jpg" /></div>
+		</ul>
+		
+	 	<form action="/new"  method="post" enctype="multipart/form-data">
 	 		<p>名前:<input type="text" name="user_name"></p>
 	 		<p>内容:<input type="text" name="body"></p>
+	 		<input type="file" name="file">
 	 		<p><input type="submit" value="投稿"></p>
-	 	<ul>
+	 	</form>
+	 	<ul style="list-style-type:none;">
 	 		<% @contents.each do |content| %>
-	 		<li>
-	 			<p><%= content.name %></p>
-	 			<p><%= content.body %></p>
-	 		</li>
+	 			<li id="item-row-<%=content.id%>" style="float:left;width:30%;height:150px;">
+	 				<p id="item-body-<%=content.id%>">
+	 				 	<%= content.name %>
+			 			<%= content.body %>
+			 			<img src="/images/<%= content.img %>" style="height:60px;">
+			 			<div>
+			 				<button class="deleteBtn" data-id="<%= content.id %>">削除</button>
+			 				<button class="editBtn" data-id="<%= content.id %>">編集</button>
+			 				<button class finishBtn data-id="<%= content.id %>">完了</button>
+			 			</div>
+		 			</p>
+	 			</li>
 	 		<% end %>
-	 	</ul>
+	 		<div style="clear:both;"></div>
+	 	</ul>	 	
+	 	<script>
+	 		$(document).ready(function(){
+  				$('.bxslider').bxSlider({
+  					minslides:4,
+  					maxSlides:4,
+  					slideWidth:170,
+  					slidemargin:10,
+  					ticker:true,
+  					speed:6000 
+  				});
+			});
+	 		$(".deleteBtn").click(function(){
+	 			console.log("---------------------");
+	 		
+	 			console.log(".delete");
+				console.log(this);
+	 			var id = $(this).data('id');
+				console.log(id);
+			$.post('/delete',{
+				id: id 
+				},function() {
+				console.log("dd");
+				$("li#item-row-" + id).slideUp();
+			}
+		</script>
 	</body>
 </html>

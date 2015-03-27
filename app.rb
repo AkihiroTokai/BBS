@@ -13,10 +13,32 @@ get'/'do
 	#@contents = Contribution.all#Contribution.order("id desc").all
 	erb :index
 end
-post '/new'do
-	"Hello world"
-	logger.info("名前:#{params[:user_name]},内容:#{params[:body]}")
-	Contribution.create(:name => params[:user_name],
-						:body => params[:body])	
+
+post '/new' do 
+	Contribution.create(:name => params[:name],
+						:body => params[:body],
+						:img => "")
+	if params[:file]
+		contents = Contribution.last
+		id = contents.id
+		ext = params[:file][:filename].split(".")[1]
+		imgName = "#{contents.id}-bbs.#{ext}"
+		contents.update_attribute(:img, imgName)
+
+		save_path = "./public/images/#{imgName}"
+
+		File.open(save_path,'wb') do |f|
+			#p params[:file][:tempfile]
+			f.write params[:file][:tempfile].read
+			logger.info "アップロード成功"
+		end
+	else
+		logger.info"アップロード失敗"
+	end
+
 	redirect '/'
-end									   
+end								   
+
+post'/delete' do
+	Contribution.find(params[:id]).destroy
+end
