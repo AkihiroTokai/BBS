@@ -6,22 +6,25 @@
 		<script src="/javascripts/jquery.bxslider.min.js"></script>
 		<script src="/javascripts/bbs.js"></script>
 		<link href="/stylesheets/jquery.bxslider.css" rel="stylesheet" />
+		<link href="/stylesheets/index.css" rel="stylesheet" />
+		<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+        <script src="/js/bootstrap.min.js"></script>
 		<title>PhotoCollection</title>		
 	</head>
-	<body>
-		<div class=slideshow>
+	<body style="background-color: #dafde3;">
+		<div class="title">
+			<h1 style="margin-left: 10%;color:#c7fbf8">PhotoCollection</h1>
+		</div>
+		<br><br><br><br><br><br>
+		<div class="slideshow space">
 
-	 	<h1>PhotoCollection</h1>
+	 	
 	 	<ul class="bxslider">
-	 		 <div class="slide"><img src="/images/<%= content.img %>.jpg" /></div>
+	 		<% @contents.each do |content| %>
+  			<img src="/images/<%= content.img %>" width="360" height ="270" />
+  			<% end %>
 		</ul>
 		
-	 	<form action="/new"  method="post" enctype="multipart/form-data">
-	 		<p>名前:<input type="text" name="user_name"></p>
-	 		<p>内容:<input type="text" name="body"></p>
-	 		<input type="file" name="file">
-	 		<p><input type="submit" value="投稿"></p>
-	 	</form>
 	 	<ul style="list-style-type:none;">
 	 		<% @contents.each do |content| %>
 	 			<li id="item-row-<%=content.id%>" style="float:left;width:30%;height:150px;">
@@ -30,17 +33,27 @@
 			 			<%= content.body %>
 			 			<img src="/images/<%= content.img %>" style="height:60px;">
 			 			<div>
-			 				<button class="deleteBtn" data-id="<%= content.id %>">削除</button>
-			 				<button class="editBtn" data-id="<%= content.id %>">編集</button>
-			 				<button class finishBtn data-id="<%= content.id %>">完了</button>
+			 				<input class="btn btn-danger deleteBtn" type="submit" value="削除" data-id="<%=content.id%>"/>
+			 				<input class="btn btn-warning" type="submit" value="編集"/>
+			 				<input class="btn btn-success" type="submit" value="完了"/>
 			 			</div>
 		 			</p>
 	 			</li>
 	 		<% end %>
+	 		<form action="/new"  method="post" enctype="multipart/form-data" style="float:left;">
+	 		<p>名前:<input type="text" name="user_name"></p>
+	 		<p>内容:<input type="text" name="body"></p>
+	 		<input type="file" name="file">
+	 		<input class="btn btn-success" type="submit" value="投稿"/>
+	 	   </form>	
 	 		<div style="clear:both;"></div>
-	 	</ul>	 	
+
+	 	</ul>
+
+	 	</div> 	
 	 	<script>
-	 		$(document).ready(function(){
+	 		$(".document").ready(function(){
+	 			console.log("---------------------");
   				$('.bxslider').bxSlider({
   					minslides:4,
   					maxSlides:4,
@@ -51,7 +64,7 @@
   				});
 			});
 	 		$(".deleteBtn").click(function(){
-	 			console.log("---------------------");
+	 			console.log("!---------------------");
 	 		
 	 			console.log(".delete");
 				console.log(this);
@@ -59,10 +72,11 @@
 				console.log(id);
 			$.post('/delete',{
 				id: id 
-				},function() {
+			},function() {
 				console.log("dd");
 				$("li#item-row-" + id).slideUp();
-			}
+			});
+		});
 		</script>
 	</body>
 </html>
