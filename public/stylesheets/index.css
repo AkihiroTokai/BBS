@@ -1,12 +1,14 @@
 .title{
 	width:100%;
 	position: fixed;
-	background-color: #59fa59;
+	background-color: rgba(89,250,89,0.8);
 	z-index:999;
 }
+
 .bx-wrapper{
 	margin: 0 auto;
 }
-h1{
-	color: #dce2da;
-}
+
+
+	
+

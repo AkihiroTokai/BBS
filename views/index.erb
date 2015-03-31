@@ -6,22 +6,22 @@
 		<script src="/javascripts/jquery.bxslider.min.js"></script>
 		<script src="/javascripts/bbs.js"></script>
 		<link href="/stylesheets/jquery.bxslider.css" rel="stylesheet" />
-		<link href="/stylesheets/index.css" rel="stylesheet" />
+		<link rel="stylesheet" href="/stylesheets/index.css"  />
 		<link rel="stylesheet" href="/css/bootstrap.min.css"/>
         <script src="/js/bootstrap.min.js"></script>
 		<title>PhotoCollection</title>		
 	</head>
-	<body style="background-color: #dafde3;">
-		<div class="title">
-			<h1 style="margin-left: 10%;color:#c7fbf8">PhotoCollection</h1>
+	<body style="background-color:#dafde3;"> 
+			<div class="title">
+			<h1 style="color: #c7fbf8;margin-left: 10%;">PhotoCollection</h1>
 		</div>
 		<br><br><br><br><br><br>
 		<div class="slideshow space">
 
 	 	
-	 	<ul class="bxslider">
+	 		<ul class="bxslider">
 	 		<% @contents.each do |content| %>
-  			<img src="/images/<%= content.img %>" width="360" height ="270" />
+  			<img src="<%= content.img %>" width="360" height ="270" />
   			<% end %>
 		</ul>
 		
@@ -47,7 +47,6 @@
 	 		<input class="btn btn-success" type="submit" value="投稿"/>
 	 	   </form>	
 	 		<div style="clear:both;"></div>
-
 	 	</ul>
 
 	 	</div> 	
@@ -76,7 +75,7 @@
 				console.log("dd");
 				$("li#item-row-" + id).slideUp();
 			});
-		});
-		</script>
+		})
+		</script> 
 	</body>
 </html>

@@ -3,6 +3,7 @@ require  'sinatra/reloader'
 require 'active_record'
 
 require './models/contributions.rb'
+require './image_uploader.rb'
 
 set :bind, '192.168.33.10'
 set :port,  3000
@@ -18,6 +19,7 @@ post '/new' do
 	Contribution.create(:name => params[:name],
 						:body => params[:body],
 						:img => "")
+
 	if params[:file]
 		contents = Contribution.last
 		id = contents.id
@@ -35,10 +37,19 @@ post '/new' do
 	else
 		logger.info"アップロード失敗"
 	end
-
+=begin
+if params[:file]
+		if setting.deveropment?
+			image_upload_local params[:file]
+		else
+			image_upload params[:file]
+		end
+	else
+		logger.info"アップロード失敗"
+	end
 	redirect '/'
 end								   
-
+=end
 post'/delete' do
 	Contribution.find(params[:id]).destroy
 end

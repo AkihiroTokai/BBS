@@ -6,3 +6,6 @@ $('.bxslider').bxSlider({
   ticker: true,
   speed: 60
 });
+
+
+		
