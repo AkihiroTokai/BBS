@@ -48,8 +48,8 @@ if params[:file]
 		logger.info"アップロード失敗"
 	end
 	redirect '/'
-end								   
 =end
+end								   
 post'/delete' do
 	Contribution.find(params[:id]).destroy
 end
