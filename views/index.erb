@@ -11,19 +11,18 @@
         <script src="/js/bootstrap.min.js"></script>
 		<title>PhotoCollection</title>		
 	</head>
+
 	<body style="background-color:#dafde3;"> 
 			<div class="title">
-			<h1 style="color: #c7fbf8;margin-left: 10%;">PhotoCollection</h1>
-		</div>
+				<h1 style="color: #c7fbf8;margin-left: 10%;">PhotoCollection</h1>
+			</div>
 		<br><br><br><br><br><br>
 		<div class="slideshow space">
-
-	 	
 	 		<ul class="bxslider">
-	 		<% @contents.each do |content| %>
-  			<img src="<%= content.img %>" width="360" height ="270" />
-  			<% end %>
-		</ul>
+	 			<% @contents.each do |content| %>
+  					<img src="<%= content.img %>" width="360" height ="270" />
+  				<% end %>
+			</ul>
 		
 	 	<ul style="list-style-type:none;">
 	 		<% @contents.each do |content| %>
@@ -48,8 +47,8 @@
 	 	   </form>	
 	 		<div style="clear:both;"></div>
 	 	</ul>
-
-	 	</div> 	
+	 	</div>
+	 	 	
 	 	<script>
 	 		$(".document").ready(function(){
 	 			console.log("---------------------");
