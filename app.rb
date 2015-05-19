@@ -11,7 +11,7 @@ set :port,  3000
 get'/'do
 	'Hello Sinatra!'
 	@contents=Contribution.order("id desc").all
-	#@contents = Contribution.all#Contribution.order("id desc").all
+	
 	erb :index
 end
 
@@ -29,27 +29,15 @@ post '/new' do
 
 		save_path = "./public/images/#{imgName}"
 
-		File.open(save_path,'wb') do |f|
-			#p params[:file][:tempfile]
+		File.open(save_path,'wb') do |f|			
 			f.write params[:file][:tempfile].read
 			logger.info "アップロード成功"
 		end
 	else
 		logger.info"アップロード失敗"
 	end
-=begin
-if params[:file]
-		if setting.deveropment?
-			image_upload_local params[:file]
-		else
-			image_upload params[:file]
-		end
-	else
-		logger.info"アップロード失敗"
-	end
-	redirect '/'
-=end
-end								   
+end	
+							   
 post'/delete' do
 	Contribution.find(params[:id]).destroy
 end
